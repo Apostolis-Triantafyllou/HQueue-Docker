@@ -41,3 +41,4 @@ RUN rm -r /houdiniInstaller
 FROM debian:11-slim
 COPY --from=hqueue-install / /
 EXPOSE 5000
+CMD ["/opt/hqueue/scripts/hqserverd"]
