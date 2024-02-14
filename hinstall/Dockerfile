@@ -29,12 +29,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=houdini-downloader /houdini /houdiniInstaller
-# Please update the following EULA_DATE to match the latest updated
-# date of EULA in yyyy-mm-dd format. E.g. "2020-05-05"
-# For Houdini 18.0 and previous version, EULA_DATE should be left empty
-ARG EULA_DATE="2021-10-13"
 # Force progress on all optional queries
-RUN yes | /houdiniInstaller/build/houdini.install --auto-install --accept-EULA ${EULA_DATE} --no-install-houdini --no-install-license --install-hqueue-server --hqueue-server-dir /opt/hqueue/build
+RUN mkdir -p /opt/hqueue/build
+RUN tar -zxf houdiniInstaller/build/hqueue.tar.gz -C /opt/hqueue/build
 RUN rm -r /houdiniInstaller
 
 # THIRD STAGE: Copy houdini-install image and un-cache unnecessary installation files
