@@ -15,7 +15,7 @@ RUN mkdir /houdini
 RUN python3 hinstall/houinstall.py
 
 # SECOND STAGE: Install and initialize Houdini
-FROM debian:11-slim as houdini-install
+FROM debian:11-slim as hqueue-install
 
 # Update and install required packages
 RUN apt-get update && \
@@ -39,5 +39,5 @@ RUN rm -r /houdiniInstaller
 
 # THIRD STAGE: Copy houdini-install image and un-cache unnecessary installation files
 FROM debian:11-slim
-COPY --from=houdini-install / /
-ENV PATH="${PATH}:/opt/houdini/build/houdini/sbin:/opt/houdini/build/bin"
+COPY --from=hqueue-install / /
+EXPOSE 5000
