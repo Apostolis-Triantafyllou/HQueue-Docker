@@ -34,7 +34,7 @@ COPY --from=houdini-downloader /houdini /houdiniInstaller
 # For Houdini 18.0 and previous version, EULA_DATE should be left empty
 ARG EULA_DATE="2021-10-13"
 # Force progress on all optional queries
-RUN yes | /houdiniInstaller/build/hqueue.install --install-server --do-install --server-dir /opt/hqueue/build
+RUN yes | /houdiniInstaller/build/houdini.install --auto-install --accept-EULA ${EULA_DATE} --no-install-houdini --no-install-license --install-hqueue-server --hqueue-server-dir /opt/hqueue/build
 RUN rm -r /houdiniInstaller
 
 # THIRD STAGE: Copy houdini-install image and un-cache unnecessary installation files
