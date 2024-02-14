@@ -1,6 +1,6 @@
 # <img src="https://static.sidefx.com/images/apple-touch-icon.png" width="25" height="25" alt="Hbuild Logo"> Houdini-Docker
 ![Autobuild](https://github.com/aaronsmithtv/houdini-docker/actions/workflows/houdocker_autobuild.yml/badge.svg)
-[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-Hbuild-f06c00?logo=docker)](https://hub.docker.com/r/apostolistriantafyllou/hqbuild)
+[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-HQbuild-f06c00?logo=docker)](https://hub.docker.com/r/apostolistriantafyllou/hqbuild)
 ![Docker Pulls](https://img.shields.io/docker/pulls/apostolistriantafyllou/hqbuild)
 
 ## Hqueue Production Build Docker Image
