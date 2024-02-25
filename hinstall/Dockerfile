@@ -30,8 +30,7 @@ RUN apt-get update && \
 
 COPY --from=houdini-downloader /houdini /houdiniInstaller
 # Force progress on all optional queries
-RUN ls /houdiniInstaller
-RUN yes | /houdiniInstaller/hqueue.install --do-install --install-server --server-dir /opt/hqueue
+RUN yes | /houdiniInstaller/build/hqueue.install --do-install --install-server --server-dir /opt/hqueue
 RUN rm -r /houdiniInstaller
 
 # THIRD STAGE: Copy houdini-install image and un-cache unnecessary installation files
