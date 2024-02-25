@@ -19,7 +19,7 @@ FROM debian:11-slim as hqueue-install
 
 # Update and install required packages
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends iputils-ping netcat inetutils-telnet inetutils-ftp procps && \
+    apt-get install -y --no-install-recommends iputils-ping netcat inetutils-telnet inetutils-ftp procps sudo && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -30,12 +30,11 @@ RUN apt-get update && \
 
 COPY --from=houdini-downloader /houdini /houdiniInstaller
 # Force progress on all optional queries
-RUN mkdir -p /opt/hqueue/build
-RUN tar -zxf houdiniInstaller/build/hqueue.tar.gz -C /opt/hqueue/build
+RUN yes | /houdiniInstaller/hqueue.install --do-install --install-server --server-dir /opt/hqueue/build
 RUN rm -r /houdiniInstaller
 
 # THIRD STAGE: Copy houdini-install image and un-cache unnecessary installation files
 FROM debian:11-slim
 COPY --from=hqueue-install / /
 EXPOSE 5000
-CMD ["/opt/hqueue/build/scripts/hqserverd"]
+CMD ["/opt/hqueue/build/python/bin", "/opt/hqueue/build/hqserver/manage.py", "serve"]
