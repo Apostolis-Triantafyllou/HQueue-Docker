@@ -83,14 +83,20 @@ if __name__ == "__main__":
         dockerfile_dir = os.path.join(os.path.dirname(__file__), "..", "hinstall")
 
         logging.info("Building Docker image...")
-        image, logs = client.images.build(
-            path=os.path.abspath(dockerfile_dir),
-            rm=True,
-            nocache=True,
-            tag=f"{build_repo}:{build_tag}",
-            buildargs=build_args,
-            encoding="gzip",
-        )
+        try:
+            image, logs = client.images.build(
+                path=os.path.abspath(dockerfile_dir),
+                rm=True,
+                nocache=True,
+                tag=f"{build_repo}:{build_tag}",
+                buildargs=build_args,
+                encoding="gzip",
+            )
+        except Exception as e:
+            print(f"Failed to build the Docker image: {e}")
+            for chunk in e.build_log:
+                if 'stream' in chunk:
+                    print(chunk['stream'].strip())
 
         logging.info(f"Built Docker image `{image.short_id}`, pushing to Docker hub...")
         client.login(username=DOCKER_USER, password=DOCKER_SECRET)
