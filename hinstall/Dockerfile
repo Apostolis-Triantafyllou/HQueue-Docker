@@ -30,11 +30,11 @@ RUN apt-get update && \
 
 COPY --from=houdini-downloader /houdini /houdiniInstaller
 # Force progress on all optional queries
-RUN yes | /houdiniInstaller/hqueue.install --do-install --install-server --server-dir /opt/hqueue/build
+RUN yes | /houdiniInstaller/hqueue.install --do-install --install-server --server-dir /opt/hqueue
 RUN rm -r /houdiniInstaller
 
 # THIRD STAGE: Copy houdini-install image and un-cache unnecessary installation files
 FROM debian:11-slim
 COPY --from=hqueue-install / /
 EXPOSE 5000
-CMD ["/opt/hqueue/build/python/bin", "/opt/hqueue/build/hqserver/manage.py", "serve"]
+CMD ["/opt/hqueue/python/bin", "/opt/hqueue/hqserver/manage.py", "serve"]
