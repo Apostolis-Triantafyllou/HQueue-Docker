@@ -38,5 +38,4 @@ RUN rm -r /houdiniInstaller
 FROM debian:11-slim
 COPY --from=hqueue-install / /
 EXPOSE 5000
-ENTRYPOINT "/opt/hqueue/python/bin/python3"
-CMD ["/opt/hqueue/hqserver/manage.py", "serve"]
+CMD ["/opt/hqueue/python/bin/python3", "/opt/hqueue/hqserver/manage.py", "serve"]
