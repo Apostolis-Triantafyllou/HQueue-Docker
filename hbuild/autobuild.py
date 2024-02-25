@@ -2,7 +2,7 @@ import logging
 import os
 
 import docker
-from docker.errors import NotFound
+from docker.errors import NotFound, BuildError
 from sesiweb import SesiWeb
 from sesiweb.model.service import BuildDownloadModel, DailyBuild, ProductBuild
 
@@ -92,7 +92,7 @@ if __name__ == "__main__":
                 buildargs=build_args,
                 encoding="gzip",
             )
-        except Exception as e:
+        except BuildError as e:
             print(f"Failed to build the Docker image: {e}")
             for chunk in e.build_log:
                 if 'stream' in chunk:
