@@ -30,6 +30,7 @@ RUN apt-get update && \
 
 COPY --from=houdini-downloader /houdini /houdiniInstaller
 # Force progress on all optional queries
+RUN ls /houdiniInstaller
 RUN yes | /houdiniInstaller/hqueue.install --do-install --install-server --server-dir /opt/hqueue
 RUN rm -r /houdiniInstaller
 
